@@ -3,4 +3,4 @@ This package is used to fit joint location-and-scale tests for high-dimensional 
 
 # Functions
 * jlst - joint location-and-scale test. 
-* gjlst - joint location-and-scale test.  
+* gjlst - generalized joint location-and-scale test.  
