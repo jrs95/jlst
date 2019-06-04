@@ -9,7 +9,7 @@ This package is used to fit joint location-and-scale tests. This package is curr
 ## Installation
 1. install.packages("devtools")
 2. library(devtools)
-3. install_github("jrs95/jlst", build_opts = c("--no-resave-data", "--no-manual"), build_vignettes = TRUE)
-4. library(hyprcoloc)
+3. install_github("jrs95/jlst")
+4. library(jlst)
 5. browseVignettes("jlst")  
 
