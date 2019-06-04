@@ -10,6 +10,5 @@ This package is used to fit joint location-and-scale tests. This package is curr
 1. install.packages("devtools")
 2. library(devtools)
 3. install_github("jrs95/jlst")
-4. library(jlst)
-5. browseVignettes("jlst")  
+4. library(jlst)  
 
