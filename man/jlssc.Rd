@@ -13,7 +13,7 @@ jlssc(y, x, covar = NULL, type = 1)
 
 \item{covar}{a data.frame of covariates.}
 
-\item{type}{type of test (default: 1 [Breusch-Pagan variance test]; options: 1 [Breusch-Pagan variance test], 2 [Glejser variance test], 3 [Method of moments version of test 1], 4 [Method of moments version of test 2]).}
+\item{type}{type of test (default: 1 [Breusch-Pagan variance test]; options: 1 [Breusch-Pagan variance test], 2 [Brown-Forsythe variance test], 3 [Method of moments version of test 1], 4 [Method of moments version of test 2]).}
 }
 \value{
 a data.frame of results. Q is the test statistic, DF is the degrees of freedom and P is the p-value.
