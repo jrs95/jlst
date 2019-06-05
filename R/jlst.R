@@ -140,9 +140,9 @@ jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1){
   
   # Scale test
   if(!is.null(covar)){
-    if(type==1){d <- (resid(lm(y~x+covar)))^2}else{d <- suppressWarnings(abs(resid(rq(y~x+covar, tau=0.5))))}
+    if(var.type==1){d <- (resid(lm(y~x+covar)))^2}else{d <- suppressWarnings(abs(resid(rq(y~x+covar, tau=0.5))))}
   }else{
-    if(type==1){d <- (resid(lm(y~x)))^2}else{d <- suppressWarnings(abs(resid(rq(y~x, tau=0.5))))}
+    if(var.type==1){d <- (resid(lm(y~x)))^2}else{d <- suppressWarnings(abs(resid(rq(y~x, tau=0.5))))}
   }
   if(!is.null(covar) & covar.var){mod <- lm(d~x+covar); mod0 <- lm(d~covar)}else{mod <- lm(d~x); mod0 <- lm(d~1)}
   coef <- summary(mod)$coefficients; rownames(coef) <- sub("covar", "", rownames(coef))
