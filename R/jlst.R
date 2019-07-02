@@ -15,6 +15,8 @@
 jlssc <- function(y, x, covar=NULL, type=1){
   
   # Errors
+  if(!(is.numeric(y) | is.integer(y))) stop("y has to be a numeric variable")
+  if(!(is.numeric(x) | is.integer(x) | is.factor(x))) stop("x has to be either a numeric variable or a factor variable")
   if(!is.null(covar)){if(!is.data.frame(covar)) stop("covar has to be a data.frame")}
   if(length(y)!=length(x)) stop("y is not the same size as x")
   if(!is.null(covar)){if(length(y)!=nrow(covar)) stop("y is not the same size as covar")}
@@ -27,9 +29,13 @@ jlssc <- function(y, x, covar=NULL, type=1){
   
   # Covariates
   if(!is.null(covar)){covar <- model.matrix(as.formula(~ .), data=covar)[,-1,drop=F]}
+  if(any(is.na(covar))) stop("there are missing values in the covariates")
   
   # Exposure
-  if(is.factor(x)){x <- model.matrix(as.formula(~ as.factor(x)))[,-1,drop=F]}
+  if(is.factor(x)){
+    x <- model.matrix(as.formula(~ as.factor(x)))[,-1,drop=F]
+    if(any(is.na(x))) stop("there are missing values in the exposure")              
+  }
   
   # Regress out covariates
   if(!is.null(covar)){
@@ -115,6 +121,8 @@ jlssc <- function(y, x, covar=NULL, type=1){
 jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1){
   
   # Errors
+  if(!(is.numeric(y) | is.integer(y))) stop("y has to be a numeric variable")
+  if(!(is.numeric(x) | is.integer(x) | is.factor(x))) stop("x has to be either a numeric variable or a factor variable")
   if(!is.null(covar)){if(!is.data.frame(covar)) stop("covar has to be a data.frame")}
   if(length(y)!=length(x)) stop("y is not the same size as x")
   if(!is.null(covar)){if(length(y)!=nrow(covar)) stop("y is not the same size as covar")}
@@ -126,6 +134,7 @@ jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1){
   
   # Covariates
   if(!is.null(covar)){covar <- model.matrix(as.formula(~ .), data=covar)[,-1,drop=F]}
+  if(any(is.na(covar))) stop("there are missing values in the covariates")
   
   # Location test
   if(!is.null(covar)){ols <- lm(y~x+covar); ols0 <- lm(y~covar)}else{ols <- lm(y~x); ols0 <- lm(y~1)}
@@ -176,6 +185,8 @@ jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1){
 vartest <- function(y, x, covar=NULL, covar.var=FALSE, type=1){
   
   # Errors
+  if(!(is.numeric(y) | is.integer(y))) stop("y has to be a numeric variable")
+  if(!(is.numeric(x) | is.integer(x) | is.factor(x))) stop("x has to be either a numeric variable or a factor variable")
   if(!is.null(covar)){if(!is.data.frame(covar)) stop("covar has to be a data.frame")}
   if(is.null(covar) & covar.var) stop("covar.var cannot be TRUE if there are no covariates")
   if(length(y)!=length(x)) stop("y is not the same size as x")
@@ -189,6 +200,7 @@ vartest <- function(y, x, covar=NULL, covar.var=FALSE, type=1){
   
   # Covariates
   if(!is.null(covar)){covar <- model.matrix(as.formula(~ .), data=covar)[,-1,drop=F]}
+  if(any(is.na(covar))) stop("there are missing values in the covariates")
   
   # Variance test
   if(!is.null(covar)){
