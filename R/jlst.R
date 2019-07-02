@@ -181,11 +181,12 @@ vartest <- function(y, x, covar=NULL, covar.var=FALSE, type=1){
   
   # Errors
   if(!is.null(covar)){if(!is.data.frame(covar)) stop('covar has to be a data.frame')}
+  if(is.null(covar) & covar.var) stop("covar.var cannot be TRUE if there are no covariates")
   if(length(y)!=length(x)) stop("y is not the same size as x")
   if(!is.null(covar)){
     if(length(y)!=nrow(covar)) stop("y is not the same size as covar")
   }
-  if(!(type %in% 1:2)) stop("type has to be set to either 1, 2, 3 or 4")
+  if(!(type %in% 1:2)) stop("type has to be set to either 1 or 2")
   
   # Missing values
   data <- cbind(y, x); if(!is.null(covar)){data <- cbind(data, covar)}
