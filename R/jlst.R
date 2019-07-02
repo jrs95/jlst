@@ -28,8 +28,10 @@ jlssc <- function(y, x, covar=NULL, type=1){
   y <- y[keep]; x <- x[keep]; if(!is.null(covar)){covar <- covar[keep,,drop=F]}
   
   # Covariates
-  if(!is.null(covar)){covar <- model.matrix(as.formula(~ .), data=covar)[,-1,drop=F]}
-  if(any(is.na(covar))) stop("there are missing values in the covariates")
+  if(!is.null(covar)){
+    covar <- model.matrix(as.formula(~ .), data=covar)[,-1,drop=F]
+    if(any(is.na(covar))) stop("there are missing values in the covariates")
+  }
   
   # Exposure
   if(is.factor(x)){
@@ -133,8 +135,10 @@ jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1){
   y <- y[keep]; x <- x[keep]; if(!is.null(covar)){covar <- covar[keep,,drop=F]}
   
   # Covariates
-  if(!is.null(covar)){covar <- model.matrix(as.formula(~ .), data=covar)[,-1,drop=F]}
-  if(any(is.na(covar))) stop("there are missing values in the covariates")
+  if(!is.null(covar)){
+    covar <- model.matrix(as.formula(~ .), data=covar)[,-1,drop=F]
+    if(any(is.na(covar))) stop("there are missing values in the covariates")
+  }
   
   # Location test
   if(!is.null(covar)){ols <- lm(y~x+covar); ols0 <- lm(y~covar)}else{ols <- lm(y~x); ols0 <- lm(y~1)}
@@ -199,8 +203,10 @@ vartest <- function(y, x, covar=NULL, covar.var=FALSE, type=1){
   y <- y[keep]; x <- x[keep]; if(!is.null(covar)){covar <- covar[keep,,drop=F]}
   
   # Covariates
-  if(!is.null(covar)){covar <- model.matrix(as.formula(~ .), data=covar)[,-1,drop=F]}
-  if(any(is.na(covar))) stop("there are missing values in the covariates")
+  if(!is.null(covar)){
+    covar <- model.matrix(as.formula(~ .), data=covar)[,-1,drop=F]
+    if(any(is.na(covar))) stop("there are missing values in the covariates")
+  }
   
   # Variance test
   if(!is.null(covar)){
