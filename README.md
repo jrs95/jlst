@@ -1,5 +1,5 @@
 # jlst
-This package is used to fit joint location-and-scale tests. This package is currently under development at the University of Bristol.
+This package is used to fit joint mean (location) and variance (scale) tests, i.e. joint location-and-scale tests. The package also has functions to perform variability tests using the Breusch-Pagan and Brown-Forsythe methods.  
 
 ## Functions
 * jlssc - joint location-and-scale score test. 
