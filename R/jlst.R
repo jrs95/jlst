@@ -13,22 +13,22 @@
 #' @author James R Staley <james.staley@bristol.ac.uk>
 #' @export
 jlssc <- function(y, x, covar=NULL, type=1){
-
-  # Covariates
-  if(!is.null(covar)){if(!is.data.frame(covar)) stop('covar has to be a data.frame')}
-  if(!is.null(covar)){covar <- model.matrix(as.formula(~ .), data=covar)[,-1,drop=F]}
-
+  
   # Errors
+  if(!is.null(covar)){if(!is.data.frame(covar)) stop('covar has to be a data.frame')}
   if(length(y)!=length(x)) stop("y is not the same size as x")
   if(!is.null(covar)){
     if(length(y)!=nrow(covar)) stop("y is not the same size as covar")
   }
   if(!(type %in% 1:4)) stop("type has to be set to either 1, 2, 3 or 4")
-
+  
   # Missing values
   data <- cbind(y, x); if(!is.null(covar)){data <- cbind(data, covar)}
   keep <- complete.cases(data)
-  y <- y[keep]; x <- x[keep]; if(!is.null(covar)){covar <- as.matrix(covar[keep,,drop=F])}
+  y <- y[keep]; x <- x[keep]; if(!is.null(covar)){covar <- covar[keep,,drop=F]}
+  
+  # Covariates
+  if(!is.null(covar)){covar <- model.matrix(as.formula(~ .), data=covar)[,-1,drop=F]}
   
   # Exposure
   if(is.factor(x)){x <- model.matrix(as.formula(~ as.factor(x)))[,-1,drop=F]}
@@ -116,11 +116,8 @@ jlssc <- function(y, x, covar=NULL, type=1){
 #' @export
 jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1){
   
-  # Covariates
-  if(!is.null(covar)){if(!is.data.frame(covar)) stop('covar has to be a data.frame')}
-  if(!is.null(covar)){covar <- model.matrix(as.formula(~ .), data=covar)[,-1,drop=F]}
-  
   # Errors
+  if(!is.null(covar)){if(!is.data.frame(covar)) stop('covar has to be a data.frame')}
   if(length(y)!=length(x)) stop("y is not the same size as x")
   if(!is.null(covar)){
     if(length(y)!=nrow(covar)) stop("y is not the same size as covar")
@@ -129,7 +126,10 @@ jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1){
   # Missing values
   data <- cbind(y, x); if(!is.null(covar)){data <- cbind(data, covar)}
   keep <- complete.cases(data)
-  y <- y[keep]; x <- x[keep]; if(!is.null(covar)){covar <- as.matrix(covar[keep,,drop=F])}
+  y <- y[keep]; x <- x[keep]; if(!is.null(covar)){covar <- covar[keep,,drop=F]}
+  
+  # Covariates
+  if(!is.null(covar)){covar <- model.matrix(as.formula(~ .), data=covar)[,-1,drop=F]}
   
   # Location test
   if(!is.null(covar)){ols <- lm(y~x+covar); ols0 <- lm(y~covar)}else{ols <- lm(y~x); ols0 <- lm(y~1)}
@@ -179,19 +179,21 @@ jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1){
 #' @export
 vartest <- function(y, x, covar=NULL, covar.var=FALSE, type=1){
   
-  # Covariates
-  if(!is.null(covar)){if(!is.data.frame(covar)) stop('covar has to be a data.frame')}
-  if(!is.null(covar)){covar <- model.matrix(as.formula(~ .), data=covar)[,-1,drop=F]}
-  
   # Errors
-  if(is.null(covar) & covar.var) stop("covar.var cannot be TRUE if there are no covariates")
+  if(!is.null(covar)){if(!is.data.frame(covar)) stop('covar has to be a data.frame')}
   if(length(y)!=length(x)) stop("y is not the same size as x")
-  if(!is.null(covar)){if(length(y)!=nrow(covar)) stop("y is not the same size as covar")}
+  if(!is.null(covar)){
+    if(length(y)!=nrow(covar)) stop("y is not the same size as covar")
+  }
+  if(!(type %in% 1:2)) stop("type has to be set to either 1, 2, 3 or 4")
   
   # Missing values
   data <- cbind(y, x); if(!is.null(covar)){data <- cbind(data, covar)}
   keep <- complete.cases(data)
-  y <- y[keep]; x <- x[keep]; if(!is.null(covar)){covar <- as.matrix(covar[keep,])}
+  y <- y[keep]; x <- x[keep]; if(!is.null(covar)){covar <- covar[keep,,drop=F]}
+  
+  # Covariates
+  if(!is.null(covar)){covar <- model.matrix(as.formula(~ .), data=covar)[,-1,drop=F]}
   
   # Variance test
   if(!is.null(covar)){
