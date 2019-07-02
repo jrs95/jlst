@@ -134,7 +134,7 @@ jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1){
   # Location test
   if(!is.null(covar)){ols <- lm(y~x+covar); ols0 <- lm(y~covar)}else{ols <- lm(y~x); ols0 <- lm(y~1)}
   coef <- summary(ols)$coefficients; rownames(coef) <- sub("covar", "", rownames(coef))
-  test <- anova(ols0,ols)[2,c(3,5,6)]; names(test) <- c("DF", "F", "P"); rownames(test) <- NULL
+  test <- anova(ols0,ols)[2,c(3,5,6)]; names(test) <- c("DF", "F", "P"); rownames(test) <- 1:nrow(test)
   location_test <- list(coef=coef, test=test)
   p_location <- location_test$test$P
   
@@ -146,7 +146,7 @@ jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1){
   }
   if(!is.null(covar) & covar.var){mod <- lm(d~x+covar); mod0 <- lm(d~covar)}else{mod <- lm(d~x); mod0 <- lm(d~1)}
   coef <- summary(mod)$coefficients; rownames(coef) <- sub("covar", "", rownames(coef))
-  test <- anova(mod0, mod)[2,c(3,5,6)]; names(test) <- c("DF", "F", "P"); rownames(test) <- NULL
+  test <- anova(mod0, mod)[2,c(3,5,6)]; names(test) <- c("DF", "F", "P"); rownames(test) <- 1:nrow(test)
   scale_test <- list(coef=coef, test=test)
   p_scale <- scale_test$test$P
   
@@ -203,7 +203,7 @@ vartest <- function(y, x, covar=NULL, covar.var=FALSE, type=1){
   }
   if(!is.null(covar) & covar.var){mod <- lm(d~x+covar); mod0 <- lm(d~covar)}else{mod <- lm(d~x); mod0 <- lm(d~1)}
   coef <- summary(mod)$coefficients; rownames(coef) <- sub("covar", "", rownames(coef))
-  test <- anova(mod0, mod)[2,c(3,5,6)]; names(test) <- c("DF", "F", "P"); rownames(test) <- NULL
+  test <- anova(mod0, mod)[2,c(3,5,6)]; names(test) <- c("DF", "F", "P"); rownames(test) <- 1:nrow(test)
   results <- list(coef=coef, test=test)
   
   # Results  
