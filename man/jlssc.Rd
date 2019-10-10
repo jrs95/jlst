@@ -27,5 +27,5 @@ y <- 0.5 + rnorm(1000, 0.025, 0.025)*x + rnorm(1000, 0, 0.1)
 jlssc(y, x)
 }
 \author{
-James R Staley <james.staley@bristol.ac.uk>
+James R Staley <jrstaley95@gmail.com>
 }
