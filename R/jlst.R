@@ -5,6 +5,7 @@
 #' @param x vector of exposure values.
 #' @param covar a data.frame of covariates.
 #' @param type type of test (default: 1 [Breusch-Pagan variance test]; options: 1 [Breusch-Pagan variance test], 2 [Brown-Forsythe variance test], 3 [Method of moments version of test 1], 4 [Method of moments version of test 2]).
+#' @param x.sq include x-squared in the model.
 #' @return a data.frame of results. Q is the test statistic, DF is the degrees of freedom and P is the p-value.
 #' @examples
 #' x <- rbinom(1000, 1, 0.5)
@@ -12,7 +13,7 @@
 #' jlssc(y, x)
 #' @author James R Staley <james.staley@bristol.ac.uk>
 #' @export
-jlssc <- function(y, x, covar=NULL, type=1){
+jlssc <- function(y, x, covar=NULL, type=1, x.sq=F){
   
   # Errors
   if(!(is.numeric(y) | is.integer(y))) stop("y has to be a numeric variable")
@@ -21,6 +22,8 @@ jlssc <- function(y, x, covar=NULL, type=1){
   if(length(y)!=length(x)) stop("y is not the same size as x")
   if(!is.null(covar)){if(length(y)!=nrow(covar)) stop("y is not the same size as covar")}
   if(!(type %in% 1:4)) stop("type has to be set to either 1, 2, 3 or 4")
+  if(is.logical(x.sq)==F) stop("x.sq has to logical")
+  if(x.sq==T & is.factor(x)==T) stop("x.sq cannot be set to true if x is a factor variable")
   
   # Missing values
   data <- cbind(y, x); if(!is.null(covar)){data <- cbind(data, covar)}
@@ -37,6 +40,11 @@ jlssc <- function(y, x, covar=NULL, type=1){
   if(is.factor(x)){
     x <- model.matrix(as.formula(~ as.factor(x)))[,-1,drop=F]
     if(any(is.na(x))) stop("there are missing values in the exposure")              
+  }
+  if(x.sq==T){
+    x2 <- x^2
+    x <- model.matrix(as.formula(~ x + x2))[,-1,drop=F]
+    if(any(is.na(x))) stop("there are missing values in the exposure")    
   }
   
   # Regress out covariates
@@ -113,6 +121,7 @@ jlssc <- function(y, x, covar=NULL, type=1){
 #' @param covar a data.frame of covariates.
 #' @param covar.var adjust the second stage (variance component) of the approach by the covariates.
 #' @param type type of test (default: 1 [Breusch-Pagan variance test]; options: 1 [Breusch-Pagan variance test], 2 [Brown-Forsythe variance test]).
+#' @param x.sq include x-squared in the variance part of the model.
 #' @return a list of results. Q/F is the test statistic, DF is the degrees of freedom and P is the p-value. The model coefficients from each part of the model are given in the coef objects.
 #' @examples
 #' x <- rbinom(1000, 1, 0.5)
@@ -120,7 +129,7 @@ jlssc <- function(y, x, covar=NULL, type=1){
 #' jlsp(y, x, type=2)
 #' @author James R Staley <james.staley@bristol.ac.uk>
 #' @export
-jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1){
+jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1, x.sq=F){
   
   # Errors
   if(!(is.numeric(y) | is.integer(y))) stop("y has to be a numeric variable")
@@ -128,6 +137,8 @@ jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1){
   if(!is.null(covar)){if(!is.data.frame(covar)) stop("covar has to be a data.frame")}
   if(length(y)!=length(x)) stop("y is not the same size as x")
   if(!is.null(covar)){if(length(y)!=nrow(covar)) stop("y is not the same size as covar")}
+  if(is.logical(x.sq)==F) stop("x.sq has to logical")
+  if(x.sq==T & is.factor(x)==T) stop("x.sq cannot be set to true if x is a factor variable")
   
   # Missing values
   data <- cbind(y, x); if(!is.null(covar)){data <- cbind(data, covar)}
@@ -138,6 +149,11 @@ jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1){
   if(!is.null(covar)){
     covar <- model.matrix(as.formula(~ .), data=covar)[,-1,drop=F]
     if(any(is.na(covar))) stop("there are missing values in the covariates")
+  }
+  
+  # Exposure squared
+  if(x.sq==T){
+    x2 <- x^2
   }
   
   # Location test
@@ -153,7 +169,11 @@ jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1){
   }else{
     if(var.type==1){d <- (resid(lm(y~x)))^2}else{d <- suppressWarnings(abs(resid(rq(y~x, tau=0.5))))}
   }
-  if(!is.null(covar) & covar.var){mod <- lm(d~x+covar); mod0 <- lm(d~covar)}else{mod <- lm(d~x); mod0 <- lm(d~1)}
+  if(!is.null(covar) & covar.var){
+    if(x.sq==T){mod <- lm(d~x+x2+covar); mod0 <- lm(d~covar)}else{mod <- lm(d~x+covar); mod0 <- lm(d~covar)}
+  }else{
+    if(x.sq==T){mod <- lm(d~x+x2); mod0 <- lm(d~1)}else{mod <- lm(d~x); mod0 <- lm(d~1)}
+  }
   coef <- summary(mod)$coefficients; rownames(coef) <- sub("covar", "", rownames(coef))
   test <- anova(mod0, mod)[2,c(3,5,6)]; names(test) <- c("DF", "F", "P"); rownames(test) <- 1:nrow(test)
   scale_test <- list(coef=coef, test=test)
@@ -179,6 +199,7 @@ jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1){
 #' @param covar a data.frame of covariates.
 #' @param covar.var adjust the second stage (variance component) of the approach by the covariates.
 #' @param type type of test (default: 1 [Breusch-Pagan variance test]; options: 1 [Breusch-Pagan variance test], 2 [Brown-Forsythe variance test]).
+#' @param x.sq include x-squared in the variance part of the model.
 #' @return a list of results. F is the test statistic, DF is the degrees of freedom and P is the p-value. The model coefficients from variance part of the model are given in the coef object.
 #' @examples
 #' x <- rbinom(1000, 1, 0.5)
@@ -186,7 +207,7 @@ jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1){
 #' vartest(y, x, type=2)
 #' @author James R Staley <james.staley@bristol.ac.uk>
 #' @export
-vartest <- function(y, x, covar=NULL, covar.var=FALSE, type=1){
+vartest <- function(y, x, covar=NULL, covar.var=FALSE, type=1, x.sq=F){
   
   # Errors
   if(!(is.numeric(y) | is.integer(y))) stop("y has to be a numeric variable")
@@ -196,6 +217,8 @@ vartest <- function(y, x, covar=NULL, covar.var=FALSE, type=1){
   if(length(y)!=length(x)) stop("y is not the same size as x")
   if(!is.null(covar)){if(length(y)!=nrow(covar)) stop("y is not the same size as covar")}
   if(!(type %in% 1:2)) stop("type has to be set to either 1 or 2")
+  if(is.logical(x.sq)==F) stop("x.sq has to logical")
+  if(x.sq==T & is.factor(x)==T) stop("x.sq cannot be set to true if x is a factor variable")
   
   # Missing values
   data <- cbind(y, x); if(!is.null(covar)){data <- cbind(data, covar)}
@@ -214,7 +237,11 @@ vartest <- function(y, x, covar=NULL, covar.var=FALSE, type=1){
   }else{
     if(type==1){d <- (resid(lm(y~x)))^2}else{d <- suppressWarnings(abs(resid(rq(y~x, tau=0.5))))}
   }
-  if(!is.null(covar) & covar.var){mod <- lm(d~x+covar); mod0 <- lm(d~covar)}else{mod <- lm(d~x); mod0 <- lm(d~1)}
+  if(!is.null(covar) & covar.var){
+    if(x.sq==T){mod <- lm(d~x+x2+covar); mod0 <- lm(d~covar)}else{mod <- lm(d~x+covar); mod0 <- lm(d~covar)}
+  }else{
+    if(x.sq==T){mod <- lm(d~x+x2); mod0 <- lm(d~1)}else{mod <- lm(d~x); mod0 <- lm(d~1)}
+  }
   coef <- summary(mod)$coefficients; rownames(coef) <- sub("covar", "", rownames(coef))
   test <- anova(mod0, mod)[2,c(3,5,6)]; names(test) <- c("DF", "F", "P"); rownames(test) <- 1:nrow(test)
   results <- list(coef=coef, test=test)
