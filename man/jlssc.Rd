@@ -15,7 +15,7 @@ jlssc(y, x, covar = NULL, type = 1, x.sq = F)
 
 \item{type}{type of test (default: 1 [Breusch-Pagan variance test]; options: 1 [Breusch-Pagan variance test], 2 [Brown-Forsythe variance test], 3 [Method of moments version of test 1], 4 [Method of moments version of test 2]).}
 
-\item{x.sq}{include x-squared in the model.}
+\item{x.sq}{include x-squared in the model (for continuous exposures only).}
 }
 \value{
 a data.frame of results. Q is the test statistic, DF is the degrees of freedom and P is the p-value.
