@@ -4,7 +4,7 @@
 \alias{jlsp}
 \title{jlsp}
 \usage{
-jlsp(y, x, covar = NULL, covar.var = FALSE, var.type = 1)
+jlsp(y, x, covar = NULL, covar.var = FALSE, var.type = 1, x.sq = F)
 }
 \arguments{
 \item{y}{vector of outcome values.}
@@ -16,6 +16,8 @@ jlsp(y, x, covar = NULL, covar.var = FALSE, var.type = 1)
 \item{covar.var}{adjust the second stage (variance component) of the approach by the covariates.}
 
 \item{type}{type of test (default: 1 [Breusch-Pagan variance test]; options: 1 [Breusch-Pagan variance test], 2 [Brown-Forsythe variance test]).}
+  
+\item{x.sq}{include x-squared in the variance part of the model.}
 }
 \value{
 a list of results. Q/F is the test statistic, DF is the degrees of freedom and P is the p-value. The model coefficients from each part of the model are given in the coef objects.
