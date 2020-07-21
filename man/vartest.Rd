@@ -17,7 +17,7 @@ vartest(y, x, covar = NULL, covar.var = FALSE, type = 1, x.sq = F)
 
 \item{type}{type of test (default: 1 [Breusch-Pagan variance test]; options: 1 [Breusch-Pagan variance test], 2 [Brown-Forsythe variance test]).}
 
-\item{x.sq}{include x-squared in the variance part of the model.}
+\item{x.sq}{include x-squared in the variance part of the model (for continuous exposures only).}
 }
 \value{
 a list of results. F is the test statistic, DF is the degrees of freedom and P is the p-value. The model coefficients from variance part of the model are given in the coef object.
