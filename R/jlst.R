@@ -11,7 +11,7 @@
 #' x <- rbinom(1000, 1, 0.5)
 #' y <- 0.5 + 0.025*x + rnorm(1000, 0, sqrt(0.025^2*x)) + rnorm(1000, 0, 0.1)
 #' jlssc(y, x)
-#' @author James R Staley <james.staley@bristol.ac.uk>
+#' @author James R Staley <jrstaley95@gmail.com>
 #' @export
 jlssc <- function(y, x, covar=NULL, type=1, x.sq=F){
   
@@ -127,7 +127,7 @@ jlssc <- function(y, x, covar=NULL, type=1, x.sq=F){
 #' x <- rbinom(1000, 1, 0.5)
 #' y <- 0.5 + 0.025*x + rnorm(1000, 0, sqrt(0.025^2*x)) + rnorm(1000, 0, 0.1)
 #' jlsp(y, x, type=2)
-#' @author James R Staley <james.staley@bristol.ac.uk>
+#' @author James R Staley <jrstaley95@gmail.com>
 #' @export
 jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1, x.sq=F){
   
@@ -205,7 +205,7 @@ jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1, x.sq=F){
 #' x <- rbinom(1000, 1, 0.5)
 #' y <- 0.5 + 0.025*x + rnorm(1000, 0, sqrt(0.025^2*x)) + rnorm(1000, 0, 0.1)
 #' vartest(y, x, type=2)
-#' @author James R Staley <james.staley@bristol.ac.uk>
+#' @author James R Staley <jjrstaley95@gmail.com>
 #' @export
 vartest <- function(y, x, covar=NULL, covar.var=FALSE, type=1, x.sq=F){
   
