@@ -28,7 +28,7 @@ jlsp performs the joint location-and-scale test using Fisher's method.
 \examples{
 x <- rbinom(1000, 1, 0.5)
 y <- 0.5 + 0.025*x + rnorm(1000, 0, sqrt(0.005*x)) + rnorm(1000, 0, 0.1)
-jlsp(y, x, type=2)
+jlsp(y, x, var.type=2)
 }
 \author{
 James R Staley <jrstaley95@gmail.com>
