@@ -27,7 +27,7 @@ vartest performs variability tests by either the Breusch-Pagan or Brown-Forsythe
 }
 \examples{
 x <- rbinom(1000, 1, 0.5)
-y <- 0.5 + 0.025*x + rnorm(1000, 0, sqrt(0.025^2*x)) + rnorm(1000, 0, 0.1)
+y <- 0.5 + 0.025*x + rnorm(1000, 0, sqrt(0.005*x)) + rnorm(1000, 0, 0.1)
 vartest(y, x, type=2)
 }
 \author{
