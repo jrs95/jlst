@@ -248,7 +248,7 @@ vartest <- function(y, x, covar=NULL, covar.var=FALSE, type=1, x.sq=F){
     if(x.sq==T){mod <- lm(d~x+x2); mod0 <- lm(d~1)}else{mod <- lm(d~x); mod0 <- lm(d~1)}
   }
   coef <- summary(mod)$coefficients; rownames(coef) <- sub("covar", "", rownames(coef))
-  test <- anova(mod0, mod)[2,c(3,5,6)]; names(test) <- c("DF", "F", "P"); rownames(test) <- 1:nrow(test)
+  test <- anova(mod0, mod)[2,c(3,5,6)]; test <- as.data.frame(test); names(test) <- c("DF", "F", "P"); rownames(test) <- 1:nrow(test)
   results <- list(coef=coef, test=test)
   
   # Results  
