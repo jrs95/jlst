@@ -9,7 +9,7 @@
 #' @return a data.frame of results. Q is the test statistic, DF is the degrees of freedom and P is the p-value.
 #' @examples
 #' x <- rbinom(1000, 1, 0.5)
-#' y <- 0.5 + 0.025*x + rnorm(1000, 0, sqrt(0.025^2*x)) + rnorm(1000, 0, 0.1)
+#' y <- 0.5 + 0.025*x + rnorm(1000, 0, sqrt(0.005*x)) + rnorm(1000, 0, 0.1)
 #' jlssc(y, x)
 #' @author James R Staley <jrstaley95@gmail.com>
 #' @export
@@ -125,8 +125,8 @@ jlssc <- function(y, x, covar=NULL, type=1, x.sq=F){
 #' @return a list of results. Q/F is the test statistic, DF is the degrees of freedom and P is the p-value. The model coefficients from each part of the model are given in the coef objects.
 #' @examples
 #' x <- rbinom(1000, 1, 0.5)
-#' y <- 0.5 + 0.025*x + rnorm(1000, 0, sqrt(0.025^2*x)) + rnorm(1000, 0, 0.1)
-#' jlsp(y, x, type=2)
+#' y <- 0.5 + 0.025*x + rnorm(1000, 0, sqrt(0.005*x)) + rnorm(1000, 0, 0.1)
+#' jlsp(y, x, var.type=2)
 #' @author James R Staley <jrstaley95@gmail.com>
 #' @export
 jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1, x.sq=F){
@@ -203,7 +203,7 @@ jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1, x.sq=F){
 #' @return a list of results. F is the test statistic, DF is the degrees of freedom and P is the p-value. The model coefficients from variance part of the model are given in the coef object.
 #' @examples
 #' x <- rbinom(1000, 1, 0.5)
-#' y <- 0.5 + 0.025*x + rnorm(1000, 0, sqrt(0.025^2*x)) + rnorm(1000, 0, 0.1)
+#' y <- 0.5 + 0.025*x + rnorm(1000, 0, sqrt(0.005*x)) + rnorm(1000, 0, 0.1)
 #' vartest(y, x, type=2)
 #' @author James R Staley <jjrstaley95@gmail.com>
 #' @export
