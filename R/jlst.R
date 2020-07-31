@@ -231,6 +231,11 @@ vartest <- function(y, x, covar=NULL, covar.var=FALSE, type=1, x.sq=F){
     if(any(is.na(covar))) stop("there are missing values in the covariates")
   }
   
+  # Exposure squared
+  if(x.sq==T){
+    x2 <- x^2
+  }
+  
   # Variance test
   if(!is.null(covar)){
     if(type==1){d <- (resid(lm(y~x+covar)))^2}else{d <- suppressWarnings(abs(resid(rq(y~x+covar, tau=0.5))))}
