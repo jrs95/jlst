@@ -5,7 +5,7 @@
 #' @param x vector of exposure values.
 #' @param covar a data.frame of covariates.
 #' @param type type of test (default: 1 [Breusch-Pagan variance test]; options: 1 [Breusch-Pagan variance test], 2 [Brown-Forsythe variance test], 3 [Method of moments version of test 1], 4 [Method of moments version of test 2]).
-#' @param x.sq include an x-squared in the model.
+#' @param x.sq include x-squared in the model.
 #' @return a data.frame of results. Q is the test statistic, DF is the degrees of freedom and P is the p-value.
 #' @examples
 #' x <- rbinom(1000, 1, 0.5)
@@ -121,7 +121,7 @@ jlssc <- function(y, x, covar=NULL, type=1, x.sq=F){
 #' @param covar a data.frame of covariates.
 #' @param covar.var adjust the second stage (variance component) of the approach by the covariates.
 #' @param type type of test (default: 1 [Breusch-Pagan variance test]; options: 1 [Breusch-Pagan variance test], 2 [Brown-Forsythe variance test]).
-#' @param x.sq include an x-squared in the variance part of the model.
+#' @param x.sq include x-squared in the variance part of the model.
 #' @return a list of results. Q/F is the test statistic, DF is the degrees of freedom and P is the p-value. The model coefficients from each part of the model are given in the coef objects.
 #' @examples
 #' x <- rbinom(1000, 1, 0.5)
@@ -199,7 +199,7 @@ jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1, x.sq=F){
 #' @param covar a data.frame of covariates.
 #' @param covar.var adjust the second stage (variance component) of the approach by the covariates.
 #' @param type type of test (default: 1 [Breusch-Pagan variance test]; options: 1 [Breusch-Pagan variance test], 2 [Brown-Forsythe variance test]).
-#' @param x.sq include an x-squared in the variance part of the model.
+#' @param x.sq include x-squared in the variance part of the model.
 #' @return a list of results. F is the test statistic, DF is the degrees of freedom and P is the p-value. The model coefficients from variance part of the model are given in the coef object.
 #' @examples
 #' x <- rbinom(1000, 1, 0.5)
