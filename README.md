@@ -32,4 +32,4 @@ jlssc(y, x=as.factor(x), type=3) # Method of moments version of the test with th
 jlssc(y, x=as.factor(x), type=4) # Method of moments version of the test with the Brown-Forsythe variance test   
 
 ## Citation
-Staley JR, Windmeijer F, et al. A robust mean and variance test with application to epigenome-wide association studies. bioRxiv 2020; doi: https://doi.org/10.1101/2020.02.06.926584.
+Staley JR, Windmeijer F, et al. A robust mean and variance test with application to high-dimensional phenotypes. bioRxiv 2020; doi: https://doi.org/10.1101/2020.02.06.926584.
