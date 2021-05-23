@@ -6,6 +6,7 @@
 #' @param covar a data.frame of covariates.
 #' @param type type of test (default: 1 [Breusch-Pagan variance test]; options: 1 [Breusch-Pagan variance test], 2 [Brown-Forsythe variance test], 3 [Method of moments version of test 1], 4 [Method of moments version of test 2]).
 #' @param x.sq include x-squared in the model.
+#' @param x.reg regress out the covariates from the exposure terms.
 #' @return a data.frame of results. Q is the test statistic, DF is the degrees of freedom and P is the p-value.
 #' @examples
 #' x <- rbinom(1000, 1, 0.5)
@@ -13,7 +14,7 @@
 #' jlssc(y, x)
 #' @author James R Staley <jrstaley95@gmail.com>
 #' @export
-jlssc <- function(y, x, covar=NULL, type=1, x.sq=F){
+jlssc <- function(y, x, covar=NULL, type=1, x.sq=F, x.reg=T){
   
   # Errors
   if(!(is.numeric(y) | is.integer(y))) stop("y has to be a numeric variable")
@@ -50,7 +51,9 @@ jlssc <- function(y, x, covar=NULL, type=1, x.sq=F){
   # Regress out covariates
   if(!is.null(covar)){
     y <- lm(y~covar)$resid
-    x <- lm(x~covar)$resid
+    if(x.reg==T){
+      x <- lm(x~covar)$resid
+    }
   }
   
   # Location + scale test
