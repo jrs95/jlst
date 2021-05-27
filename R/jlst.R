@@ -132,7 +132,7 @@ jlssc <- function(y, x, covar=NULL, type=1, x.sq=F, x.reg=T){
 #' jlsp(y, x, var.type=2)
 #' @author James R Staley <jrstaley95@gmail.com>
 #' @export
-jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1, x.sq=F){
+jlsp <- function(y, x, covar=NULL, covar.var=F, var.type=1, x.sq=F){
   
   # Errors
   if(!(is.numeric(y) | is.integer(y))) stop("y has to be a numeric variable")
@@ -210,7 +210,7 @@ jlsp <- function(y, x, covar=NULL, covar.var=FALSE, var.type=1, x.sq=F){
 #' vartest(y, x, type=2)
 #' @author James R Staley <jrstaley95@gmail.com>
 #' @export
-vartest <- function(y, x, covar=NULL, covar.var=FALSE, type=1, x.sq=F){
+vartest <- function(y, x, covar=NULL, covar.var=F, type=1, x.sq=F){
   
   # Errors
   if(!(is.numeric(y) | is.integer(y))) stop("y has to be a numeric variable")
