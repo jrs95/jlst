@@ -36,4 +36,4 @@ jlssc(y, x=as.factor(x), type=4) # Method of moments version of the test with th
 ```
 
 ## Citation
-Staley JR, Windmeijer F, et al. A robust mean and variance test with application to high-dimensional phenotypes. Eur J Epidemiol 2021; doi: 10.1007/s10654-021-00805-w.
+Staley JR, Windmeijer F, et al. A robust mean and variance test with application to high-dimensional phenotypes. Eur J Epidemiol 2022;37:377-387.
