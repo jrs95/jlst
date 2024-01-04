@@ -284,9 +284,9 @@ jlsp <- function(y, x, covar = NULL, covar.var = FALSE,
   }
   coef <- summary(ols)$coefficients
   rownames(coef) <- sub("covar", "", rownames(coef))
-  test <- anova(ols0, ols)[2, c(3, 5, 6)]
+  test <- anova(ols0, ols)[2, c(5, 3, 6)]
   test <- as.data.frame(test)
-  names(test) <- c("DF", "F", "P")
+  names(test) <- c("F", "DF", "P")
   rownames(test) <- seq_len(nrow(test))
   location_test <- list(coef = coef, test = test)
   p_location <- location_test$test$P
@@ -324,9 +324,9 @@ jlsp <- function(y, x, covar = NULL, covar.var = FALSE,
   }
   coef <- summary(mod)$coefficients
   rownames(coef) <- sub("covar", "", rownames(coef))
-  test <- anova(mod0, mod)[2, c(3, 5, 6)]
+  test <- anova(mod0, mod)[2, c(5, 3, 6)]
   test <- as.data.frame(test)
-  names(test) <- c("DF", "F", "P")
+  names(test) <- c("F", "DF", "P")
   rownames(test) <- seq_len(nrow(test))
   scale_test <- list(coef = coef, test = test)
   p_scale <- scale_test$test$P
@@ -335,7 +335,7 @@ jlsp <- function(y, x, covar = NULL, covar.var = FALSE,
   Q <- -2 * (log(p_location) + log(p_scale))
   DF <- 4
   P <- pchisq(Q, df = DF, lower.tail = FALSE)
-  location_scale_test <- data.frame(DF = DF, Q = Q, P = P)
+  location_scale_test <- data.frame(Q = Q, DF = DF, P = P)
 
   # Output
   output <- list(
