@@ -96,7 +96,9 @@ jlssc <- function(y, x, covar = NULL, type = 1, x.sq = FALSE, x.reg = TRUE) {
   if (x.sq == TRUE) {
     x2 <- x^2
     x <- model.matrix(as.formula(~ x + x2))[, -1, drop = FALSE]
-    if (any(is.na(x))) stop("there are missing values in the exposure")
+    if (any(is.na(x))) {
+      stop("there are missing values in the exposure")
+    }
   }
 
   # Regress out covariates
@@ -438,7 +440,9 @@ vartest <- function(y, x, covar = NULL, covar.var = FALSE, type = 1,
   # Covariates
   if (!is.null(covar)) {
     covar <- model.matrix(as.formula(~.), data = covar)[, -1, drop = FALSE]
-    if (any(is.na(covar))) stop("there are missing values in the covariates")
+    if (any(is.na(covar))) {
+      stop("there are missing values in the covariates")
+    }
   }
 
   # Exposure squared
