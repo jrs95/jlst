@@ -31,10 +31,10 @@ jlsp(y, x = as.factor(x), var.type = 1) # Breusch-Pagan variance test
 jlsp(y, x = as.factor(x), var.type = 2) # Brown-Forsythe variance test
 
 # Joint location-and-scale score test   
-jlssc(y, x = as.factor(x), type = 1) # Breusch-Pagan variance test
-jlssc(y, x = as.factor(x), type = 2) # Brown-Forsythe variance test
-jlssc(y, x = as.factor(x), type = 3) # Method of moments version of the test with the Breusch-Pagan variance test
-jlssc(y, x = as.factor(x), type = 4) # Method of moments version of the test with the Brown-Forsythe variance test
+jlssc(y, x = as.factor(x), type = 1) # Breusch-Pagan (BP) variance test
+jlssc(y, x = as.factor(x), type = 2) # Brown-Forsythe (BF) variance test
+jlssc(y, x = as.factor(x), type = 3) # Method of moments version of the test with the BP variance test
+jlssc(y, x = as.factor(x), type = 4) # Method of moments version of the test with the BF variance test
 ```
 
 ## Citation
