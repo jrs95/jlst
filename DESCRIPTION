@@ -11,7 +11,8 @@ Authors@R: c(
         comment = c(ORCID = "0009-0001-9520-5011")
     )
   )
-Description: Joint location-and-scale tests for .
+Description: Joint location-and-scale tests for joint testing of
+    mean (location) and variance (scale).
 License: GPL-3
 URL: https://jrs95.github.io/jlst/, https://github.com/jrs95/jlst
 BugReports: https://github.com/jrs95/jlst/issues
