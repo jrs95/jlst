@@ -1,0 +1,20 @@
+bibentry(
+  bibtype = "Article",
+  header = "To cite `jlst` in publications please use:",
+  author = c(
+    person("J.R.", "Staley"),
+    person("F.", "Windmeijer"),
+    person("M.", "Suderman"),
+    person("M.S.", "Lyon"),
+    person("G.", "Davey Smith"),
+    person("K.", "Tilling")
+  ),
+  title = "A robust mean and variance test with application to high-dimensional phenotypes",
+  year = 2022,
+  key = "jlst",
+  doi = "10.1007/s10654-021-00805-w",
+  journal = "IEuropean Journal of Epidemiology",
+  volume = 37,
+  number = 4,
+  pages = "377--387"
+)

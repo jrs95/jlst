@@ -1,21 +1,23 @@
-# jlst
+# jlst <img src='man/figures/logo.png' align="right" height="139"/>
+
 This package is used to fit joint mean (location) and variance (scale) tests, i.e. joint location-and-scale tests. The package also has functions to perform variability tests using the Breusch-Pagan and Brown-Forsythe methods.  
 
 ## Functions
-* jlssc - joint location-and-scale score test. 
-* jlsp - joint location-and-scale test using Fisher's method.  
-* vartest - variability tests with Breusch-Pagan or Brown-Forsythe methods.  
+* `jlssc`: joint location-and-scale score test. 
+* `jlsp`: joint location-and-scale test using Fisher's method.  
+* `vartest`: variability tests with Breusch-Pagan or Brown-Forsythe methods.  
 
 ## Installation
 ```
-install.packages("devtools")
-library(devtools)
-install_github("jrs95/jlst")
-library(jlst)
+install.packages("remotes")
+remotes::install_github("jrs95/jlst")
 ```
 
 ## Example
 ```
+# Libraries
+library(jlst)
+
 # Data  
 x <- rbinom(1000, 1, 0.5)
 y <- 0.5 + 0.025 * x + rnorm(1000, 0, sqrt(0.005 * x)) + rnorm(1000, 0, 0.1)
@@ -36,4 +38,4 @@ jlssc(y, x = as.factor(x), type = 4) # Method of moments version of the test wit
 ```
 
 ## Citation
-Staley JR, Windmeijer F, et al. A robust mean and variance test with application to high-dimensional phenotypes. Eur J Epidemiol 2022;37(4):377-387.
+Staley JR, Windmeijer F, *et al.* A robust mean and variance test with application to high-dimensional phenotypes. [Eur J Epidemiol](https://pubmed.ncbi.nlm.nih.gov/34651232/) 2022;37(4):377-387.

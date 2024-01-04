@@ -2,34 +2,49 @@
 % Please edit documentation in R/jlst.R
 \name{vartest}
 \alias{vartest}
-\title{vartest}
+\title{Variability tests}
 \usage{
-vartest(y, x, covar = NULL, covar.var = FALSE, type = 1, x.sq = F)
+vartest(y, x, covar = NULL, covar.var = FALSE, type = 1, x.sq = FALSE)
 }
 \arguments{
-\item{y}{vector of outcome values.}
+\item{y}{vector of outcome values}
 
-\item{x}{vector of exposure values.}
+\item{x}{vector of exposure values}
 
-\item{covar}{a data.frame of covariates.}
+\item{covar}{\code{data.frame} of covariates}
 
-\item{covar.var}{adjust the second stage (variance component) of the approach by the covariates.}
+\item{covar.var}{adjust the second stage (variance component) of the approach
+by the covariates}
 
-\item{type}{type of test (default: 1 [Breusch-Pagan variance test]; options: 1 [Breusch-Pagan variance test], 2 [Brown-Forsythe variance test]).}
+\item{type}{type of test, where
+\code{1} = Breusch-Pagan variance test, and
+\code{2} = Brown-Forsythe variance test
+(default: \code{1})}
 
-\item{x.sq}{include x-squared in the variance part of the model (for continuous exposures only).}
+\item{x.sq}{include x-squared in the variance part of the model}
 }
 \value{
-a list of results. F is the test statistic, DF is the degrees of freedom and P is the p-value. The model coefficients from variance part of the model are given in the coef object.
+\code{vartest} returns a \code{list} of results:
+
+\item{coef}{model coefficients from variance part of the model}
+
+\item{test}{\code{data.frame} of test results}
+\itemize{
+\item \code{F}: the test statistic
+\item \code{DF}: the degrees of freedom
+\item \code{P}: the p-value
+}
 }
 \description{
-vartest performs variability tests by either the Breusch-Pagan or Brown-Forsythe methods.
+vartest performs variability tests by either the Breusch-Pagan
+or Brown-Forsythe methods.
 }
 \examples{
 x <- rbinom(1000, 1, 0.5)
-y <- 0.5 + 0.025*x + rnorm(1000, 0, sqrt(0.005*x)) + rnorm(1000, 0, 0.1)
-vartest(y, x, type=2)
+y <- 0.5 + 0.025 * x + rnorm(1000, 0, sqrt(0.005 * x)) + rnorm(1000, 0, 0.1)
+vartest(y, x, type = 2)
+
 }
 \author{
-James R Staley <jrstaley95@gmail.com>
+James Staley \href{mailto:jrstaley95@gmail.com}{jrstaley95@gmail.com}
 }

@@ -3,4 +3,4 @@
 export(jlsp)
 export(jlssc)
 export(vartest)
-import(quantreg)
+importFrom(quantreg,rq)

@@ -1,14 +1,25 @@
 Package: jlst
 Title: Joint location-and-scale tests
-Version: 2.0
-Date: 31-07-2020
-Author: James Staley
-Maintainer: James Staley <jrstaley95@gmail.com>
-Description: This package is used to perform joint location-and-scale tests as well as variance tests. 
-Depends: R (>= 3.3.0), methods
-License: GPL (>= 2)
-ByteCompile: TRUE
-LazyData: TRUE
+Version: 0.0.2
+Date: 04-01-2024
+Authors@R: c(
+    person(
+        given = "James",
+        family = "Staley",
+        email = "jrstaley95@gmail.com",
+        role = c("aut", "cre"),
+        comment = c(ORCID = "0009-0001-9520-5011")
+    )
+  )
+Description: Joint location-and-scale tests for .
+License: GPL-3
+URL: https://jrs95.github.io/jlst/, https://github.com/jrs95/jlst
+BugReports: https://github.com/jrs95/jlst/issues
+Depends:
+    R (>= 3.4.0)
+Imports: 
+    quantreg
 Encoding: UTF-8
-Imports: quantreg
-RoxygenNote: 6.1.1
+ByteCompile: true
+LazyData: true
+RoxygenNote: 7.2.3

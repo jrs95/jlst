@@ -2,34 +2,46 @@
 % Please edit documentation in R/jlst.R
 \name{jlssc}
 \alias{jlssc}
-\title{jlssc}
+\title{Joint location-and-scale test}
 \usage{
-jlssc(y, x, covar = NULL, type = 1, x.sq = F, x.reg = T)
+jlssc(y, x, covar = NULL, type = 1, x.sq = FALSE, x.reg = TRUE)
 }
 \arguments{
-\item{y}{vector of outcome values.}
+\item{y}{vector of outcome values}
 
-\item{x}{vector of exposure values.}
+\item{x}{vector of exposure values}
 
-\item{covar}{a data.frame of covariates.}
+\item{covar}{\code{data.frame} of covariates}
 
-\item{type}{type of test (default: 1 [Breusch-Pagan variance test]; options: 1 [Breusch-Pagan variance test], 2 [Brown-Forsythe variance test], 3 [Method of moments version of test 1], 4 [Method of moments version of test 2]).}
+\item{type}{type of test, where
+\code{1} = Breusch-Pagan variance test,
+\code{2} = Brown-Forsythe variance test,
+\code{3} = Method of moments version of test 1, and
+\code{4} = Method of moments version of test 2]
+(default: \code{1})}
 
-\item{x.sq}{include x-squared in the model (for continuous exposures only).}
+\item{x.sq}{include x-squared in the model}
 
-\item{x.reg}{regress out the covariates from the exposure terms.}
+\item{x.reg}{regress out the covariates from the exposure terms}
 }
 \value{
-a data.frame of results. Q is the test statistic, DF is the degrees of freedom and P is the p-value.
+\code{jlst} returns a \code{data.frame} of results:
+
+\item{Q}{the test statistic}
+
+\item{DF}{the degrees of freedom}
+
+\item{P}{the p-value}
 }
 \description{
-jlssc performs the joint location-and-scale score test.
+\code{jlssc} performs the joint location-and-scale score test.
 }
 \examples{
 x <- rbinom(1000, 1, 0.5)
-y <- 0.5 + 0.025*x + rnorm(1000, 0, sqrt(0.005*x)) + rnorm(1000, 0, 0.1)
+y <- 0.5 + 0.025 * x + rnorm(1000, 0, sqrt(0.005 * x)) + rnorm(1000, 0, 0.1)
 jlssc(y, x)
+
 }
 \author{
-James R Staley <jrstaley95@gmail.com>
+James Staley \href{mailto:jrstaley95@gmail.com}{jrstaley95@gmail.com}
 }

@@ -2,34 +2,46 @@
 % Please edit documentation in R/jlst.R
 \name{jlsp}
 \alias{jlsp}
-\title{jlsp}
+\title{Joint location-and-scale test using Fisher's method}
 \usage{
-jlsp(y, x, covar = NULL, covar.var = FALSE, var.type = 1, x.sq = F)
+jlsp(y, x, covar = NULL, covar.var = FALSE, var.type = 1, x.sq = FALSE)
 }
 \arguments{
-\item{y}{vector of outcome values.}
+\item{y}{vector of outcome values}
 
-\item{x}{vector of exposure values.}
+\item{x}{vector of exposure values}
 
-\item{covar}{a data.frame of covariates.}
+\item{covar}{\code{data.frame} of covariates}
 
-\item{covar.var}{adjust the second stage (variance component) of the approach by the covariates.}
+\item{covar.var}{adjust the second stage (variance component) of the approach
+by the covariates}
 
-\item{type}{type of test (default: 1 [Breusch-Pagan variance test]; options: 1 [Breusch-Pagan variance test], 2 [Brown-Forsythe variance test]).}
-  
-\item{x.sq}{include x-squared in the variance part of the model (for continuous exposures only).}
+\item{x.sq}{include x-squared in the variance part of the model}
+
+\item{type}{type of test, where
+\code{1} = Breusch-Pagan variance test, and
+\code{2} = Brown-Forsythe variance test
+(default: \code{1})}
 }
 \value{
-a list of results. Q/F is the test statistic, DF is the degrees of freedom and P is the p-value. The model coefficients from each part of the model are given in the coef objects.
+\code{jlsp} returns a \code{list} of results:
+
+\item{Q / F}{the test statistic}
+
+\item{DF}{the degrees of freedom}
+
+\item{P}{the p-value}
 }
 \description{
-jlsp performs the joint location-and-scale test using Fisher's method.
+\code{jlsp} performs the joint location-and-scale test using
+Fisher's method.
 }
 \examples{
 x <- rbinom(1000, 1, 0.5)
-y <- 0.5 + 0.025*x + rnorm(1000, 0, sqrt(0.005*x)) + rnorm(1000, 0, 0.1)
-jlsp(y, x, var.type=2)
+y <- 0.5 + 0.025 * x + rnorm(1000, 0, sqrt(0.005 * x)) + rnorm(1000, 0, 0.1)
+jlsp(y, x, var.type = 2)
+
 }
 \author{
-James R Staley <jrstaley95@gmail.com>
+James Staley \href{mailto:jrstaley95@gmail.com}{jrstaley95@gmail.com}
 }
